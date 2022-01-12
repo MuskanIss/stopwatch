@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Stopwatch</title>
+  </head>
+  <body>
+    <span class="hr" id="hr"></span><span class="hr">h</span
+    ><span class="min" id="min"></span><span class="min">m</span
+    ><span class="sec" id="sec"></span><span class="sec">s</span
+    ><span class="milsec"></span><span class="milsec"></span>
+    <div>
+      <button id="start">Start</button>
+      <button id="pause">Pause</button>
+      <button id="reset">Reset</button>
+    </div>
+    <script>
+      var hr = document.querySelectorAll(".hr");
+      var min = document.querySelectorAll(".min");
+      var sec = document.querySelectorAll(".sec");
+      var milsec = document.querySelectorAll(".milsec");
+      hr[0].style.display = "none";
+      hr[1].style.display = "none";
+      min[0].style.display = "none";
+      min[1].style.display = "none";
+      sec[0].textContent = 0;
+      milsec[0].textContent = 0;
+      milsec[1].textContent = 0;
+      hr[0].style.fontSize = "40px";
+      hr[1].style.fontSize = "25px";
+      min[0].style.fontSize = "40px";
+      min[1].style.fontSize = "25px";
+      sec[0].style.fontSize = "40px";
+      sec[1].style.fontSize = "25px";
+      milsec[0].style.fontSize = "25px";
+      milsec[1].style.fontSize = "25px";
+      var milsec1 = 0;
+      var milsec2 = 0;
+      var Sec = 0;
+      var Min = 0;
+      var Hr = 0;
+      var t = 0;
+      document.querySelector("#start").addEventListener("click", onStart);
+      document.querySelector("#pause").addEventListener("click", onPause);
+      document.querySelector("#reset").addEventListener("click", onReset);
+      function onStart() {
+        t = setInterval(incrementTime, 10);
+      }
+      function incrementTime() {
+        milsec[1].textContent = ++milsec1;
+        milsec[0].textContent = milsec2;
+        sec[0].textContent = Sec;
+        min[0].textContent = Min;
+        if (Min > 0) {
+          min[0].style.display = "inline";
+          min[1].style.display = "inline";
+        }
+
+        hr[0].textContent = Hr;
+        if (Hr > 0) {
+          hr[0].style.display = "inline";
+          hr[1].style.display = "inline";
+        }
+        if (milsec1 === 9) {
+          if (milsec2 === 9) {
+            if (Sec === 59) {
+              if (Min === 59) {
+                Min = -1;
+                hr[0].display = "inline";
+                Hr++;
+              }
+              Sec = -1;
+              Min++;
+            }
+            milsec2 = -1;
+            Sec++;
+          }
+          milsec1 = -1;
+          milsec2++;
+        }
+      }
+      function onPause() {
+        clearInterval(t);
+      }
+      function onReset() {
+        clearInterval(t);
+        hr[0].style.display = "none";
+        hr[1].style.display = "none";
+        min[0].style.display = "none";
+        min[1].style.display = "none";
+        sec[0].textContent = 0;
+        milsec[0].textContent = 0;
+        milsec[1].textContent = 0;
+        milsec1 = 0;
+        milsec2 = 0;
+        Sec = 0;
+        Min = 0;
+        Hr = 0;
+        t = 0;
+      }
+    </script>
+  </body>
+</html>
