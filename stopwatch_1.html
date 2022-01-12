@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Stopwatch</title>
+  </head>
+  <body>
+    <span class="hr" id="hr"></span><span class="hr">h</span
+    ><span class="min" id="min"></span><span class="min">m</span
+    ><span class="sec" id="sec"></span><span class="sec">s</span
+    ><span class="milsec"></span><span class="milsec"></span>
+    <div>
+      <button id="start">Start</button>
+      <button id="pause">Pause</button>
+      <button id="reset">Reset</button>
+    </div>
+    <script>
+      let hr = document.querySelectorAll(".hr");
+      let min = document.querySelectorAll(".min");
+      let sec = document.querySelectorAll(".sec");
+      let milsec = document.querySelectorAll(".milsec");
+      hr[0].style.display = "none";
+      hr[1].style.display = "none";
+      min[0].style.display = "none";
+      min[1].style.display = "none";
+      sec[0].textContent = 0;
+      milsec[0].textContent = 0;
+      milsec[1].textContent = 0;
+      hr[0].style.fontSize = "40px";
+      hr[1].style.fontSize = "25px";
+      min[0].style.fontSize = "40px";
+      min[1].style.fontSize = "25px";
+      sec[0].style.fontSize = "40px";
+      sec[1].style.fontSize = "25px";
+      milsec[0].style.fontSize = "25px";
+      milsec[1].style.fontSize = "25px";
+      let t = 0;
+      var milsec1 = 0;
+      document.querySelector("#start").addEventListener("click", onStart);
+      document.querySelector("#pause").addEventListener("click", onPause);
+      document.querySelector("#reset").addEventListener("click", onReset);
+      function onStart() {
+        t = setInterval(incrementTime, 10);
+      }
+      function incrementTime() {
+        var time = ++milsec1;
+        hr[0].textContent = parseInt(time / 360000);
+        time = time - parseInt(time / 36000) * 36000;
+        min[0].textContent = parseInt(time / 6000);
+        time = time - parseInt(time / 6000) * 6000;
+        sec[0].textContent = parseInt(time / 100);
+        time = time - parseInt(time / 100) * 100;
+        milsec[1].textContent = time % 10;
+        time = parseInt(time / 10);
+        milsec[0].textContent = time;
+        if (min[0].textContent > 0) {
+          min[0].style.display = "inline";
+          min[1].style.display = "inline";
+        }
+        if (hr[0].textContent > 0) {
+          hr[0].style.display = "inline";
+          hr[1].style.display = "inline";
+        }
+      }
+      function onPause() {
+        clearInterval(t);
+      }
+      function onReset() {
+        clearInterval(t);
+        hr[0].style.display = "none";
+        hr[1].style.display = "none";
+        min[0].style.display = "none";
+        min[1].style.display = "none";
+        sec[0].textContent = 0;
+        milsec[0].textContent = 0;
+        milsec[1].textContent = 0;
+        milsec1 = 0;
+        milsec2 = 0;
+        Sec = 0;
+        Min = 0;
+        Hr = 0;
+        t = 0;
+      }
+    </script>
+  </body>
+</html>
